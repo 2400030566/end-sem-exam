@@ -1,0 +1,40 @@
+[
+  {
+    "name": "City General Hospital",
+    "rating": "4.5",
+    "dist": "0.8 km",
+    "tags": [
+      "Emergency",
+      "Cardiology",
+      "Surgery"
+    ]
+  },
+  {
+    "name": "Metro Medical Center",
+    "rating": "4.7",
+    "dist": "1.2 km",
+    "tags": [
+      "Pediatrics",
+      "Oncology",
+      "Neurology"
+    ]
+  },
+  {
+    "name": "St. Mary's Clinic",
+    "rating": "4.3",
+    "dist": "2.1 km",
+    "tags": [
+      "General Medicine",
+      "Orthopedics"
+    ]
+  },
+  {
+    "name": "Community Health Center",
+    "rating": "4.1",
+    "dist": "1.5 km",
+    "tags": [
+      "Family Medicine",
+      "Urgent Care"
+    ]
+  }
+]

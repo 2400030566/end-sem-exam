@@ -1,0 +1,50 @@
+{
+  "cards": [
+    {
+      "name": "Electricity",
+      "amount": "$125.80"
+    },
+    {
+      "name": "Water",
+      "amount": "$89.40"
+    },
+    {
+      "name": "Property Tax",
+      "amount": "$450.00"
+    },
+    {
+      "name": "Internet",
+      "amount": "$59.99"
+    }
+  ],
+  "payments": [
+    [
+      "Electricity",
+      "$118.45",
+      "2024-01-15",
+      "Paid",
+      "Download"
+    ],
+    [
+      "Water",
+      "$92.10",
+      "2024-01-12",
+      "Paid",
+      "Download"
+    ],
+    [
+      "Property Tax",
+      "$450.00",
+      "2024-01-01",
+      "Paid",
+      "Download"
+    ],
+    [
+      "Internet",
+      "$59.99",
+      "2023-12-28",
+      "Paid",
+      "Download"
+    ]
+  ]
+}

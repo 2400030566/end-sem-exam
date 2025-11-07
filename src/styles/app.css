@@ -1,0 +1,54 @@
+
+:root{
+  --bg: #f7f8fb;
+  --surface:#ffffff;
+  --text:#1e293b;
+  --muted:#64748b;
+  --brand1:#6a11cb;
+  --brand2:#2575fc;
+  --green:#22c55e;
+  --red:#ef4444;
+  --amber:#f59e0b;
+  --shadow: 0 10px 20px rgba(0,0,0,.06);
+  --rounded: 14px;
+}
+
+*{box-sizing:border-box}
+html, body, #root{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'}
+
+.button{
+  background: linear-gradient(90deg,var(--brand1),var(--brand2));
+  border:none;color:white;padding:12px 16px;border-radius:10px;cursor:pointer;
+  box-shadow: var(--shadow);
+}
+.button.secondary{background:var(--surface);color:var(--text);border:1px solid #e5e7eb}
+
+.input{width:100%;padding:12px 14px;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
+.card{background:var(--surface);border-radius:var(--rounded);box-shadow:var(--shadow);padding:18px}
+
+.layout{display:flex;min-height:100%}
+.sidebar{width:240px;background:#fff;box-shadow:var(--shadow);padding:18px;position:sticky;top:0;height:100vh}
+.sidebar h1{display:flex;gap:8px;align-items:center;margin:0 0 16px 0;font-size:18px}
+.sidebar .nav a{display:flex;gap:10px;align-items:center;padding:10px 12px;margin:6px 0;border-radius:10px;text-decoration:none;color:var(--text)}
+.sidebar .nav a.active, .sidebar .nav a:hover{background:#f1f5ff}
+.header{display:flex;align-items:center;gap:16px;padding:18px 24px;background:#fff;box-shadow:var(--shadow);position:sticky;top:0;z-index:2}
+.search{flex:1}
+.search input{width:100%;padding:12px 14px;border:1px solid #e5e7eb;border-radius:12px}
+
+.content{flex:1;display:flex;flex-direction:column}
+.page{padding:22px}
+.grid{display:grid;gap:16px}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.kbd{font-variant-numeric:tabular-nums}
+
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#f1f5f9;color:#334155;font-size:12px;margin-right:6px}
+.badge.green{background:#ecfdf5;color:#065f46}
+.badge.red{background:#fef2f2;color:#991b1b}
+.badge.amber{background:#fffbeb;color:#92400e}
+
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:14px}
+.map{height:260px;background:linear-gradient(180deg,#e6f0ff,#f5fbff);border-radius:12px;border:1px dashed #bcd0ff;display:flex;align-items:center;justify-content:center;color:#3b82f6}
+.link{color:#2563eb;cursor:pointer}

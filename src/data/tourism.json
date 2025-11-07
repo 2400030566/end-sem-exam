@@ -1,0 +1,44 @@
+[
+  {
+    "name": "City Museum",
+    "dist": "1.2 km",
+    "rating": "4.8",
+    "desc": "Historical artifacts and cultural exhibits",
+    "tag": "Museum"
+  },
+  {
+    "name": "Central Park",
+    "dist": "0.8 km",
+    "rating": "4.6",
+    "desc": "Beautiful gardens and walking trails",
+    "tag": "Park"
+  },
+  {
+    "name": "Historic Cathedral",
+    "dist": "1.5 km",
+    "rating": "4.7",
+    "desc": "19th century architectural masterpiece",
+    "tag": "Historic"
+  },
+  {
+    "name": "Art Gallery",
+    "dist": "2.1 km",
+    "rating": "4.5",
+    "desc": "Contemporary and classical art collections",
+    "tag": "Culture"
+  },
+  {
+    "name": "Riverside Walk",
+    "dist": "1.8 km",
+    "rating": "4.4",
+    "desc": "Local waterfront promenade",
+    "tag": "Recreation"
+  },
+  {
+    "name": "Market Square",
+    "dist": "0.6 km",
+    "rating": "4.3",
+    "desc": "Local crafts and food vendors",
+    "tag": "Shopping"
+  }
+]

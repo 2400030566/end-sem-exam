@@ -1,0 +1,23 @@
+[
+  {
+    "id": "#C001",
+    "type": "Complaint",
+    "title": "Street light not working",
+    "status": "In Progress",
+    "date": "2024-01-15"
+  },
+  {
+    "id": "#R002",
+    "type": "Report",
+    "title": "Pothole on Main Street",
+    "status": "Resolved",
+    "date": "2024-01-10"
+  },
+  {
+    "id": "#F003",
+    "type": "Feedback",
+    "title": "Bus schedule improvement",
+    "status": "Under Review",
+    "date": "2024-01-08"
+  }
+]

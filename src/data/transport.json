@@ -1,0 +1,46 @@
+{
+  "busStops": [
+    {
+      "name": "Main Street Station",
+      "dist": "0.2 km",
+      "lines": [
+        "Bus 42",
+        "Bus 15"
+      ]
+    },
+    {
+      "name": "City Center Hub",
+      "dist": "0.5 km",
+      "lines": [
+        "Bus 23",
+        "Bus 8",
+        "Bus 101"
+      ]
+    },
+    {
+      "name": "University Campus",
+      "dist": "0.8 km",
+      "lines": [
+        "Bus 67",
+        "Bus 12"
+      ]
+    }
+  ],
+  "metro": [
+    {
+      "name": "Central Station",
+      "line": "Blue Line \u2022 0.3 km",
+      "next": "3 min"
+    },
+    {
+      "name": "Commerce Plaza",
+      "line": "Red Line \u2022 0.6 km",
+      "next": "7 min"
+    },
+    {
+      "name": "Tech District",
+      "line": "Green Line \u2022 1.2 km",
+      "next": "12 min"
+    }
+  ]
+}
