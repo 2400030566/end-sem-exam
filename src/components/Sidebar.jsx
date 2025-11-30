@@ -22,7 +22,7 @@ export default function Sidebar(){
         <Item to="/tourism" icon="🗺️" label="Tourism"/>
       </div>
       <div style={{position:'absolute', bottom:18}}>
-        <button className="button secondary" onClick={()=>nav('/login')}>Logout</button>
+        <button className="button secondary" onClick={()=>{ localStorage.removeItem('auth'); nav('/login') }}>Logout</button>
       </div>
     </aside>
   )

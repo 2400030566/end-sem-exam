@@ -1,20 +1,35 @@
-import React from 'react';
-import Layout from '../components/Layout';
-import Card from '../components/Card';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import bills from '../data/bills.json'
 
 export default function Dashboard(){
-  const nav = useNavigate();
   return (
-    <Layout title="City Services Dashboard">
-      <div className="grid cols-3">
-        <Card icon="🚌" title="Public Transport" desc="Real-time bus and train schedules" actionText="Open" onClick={()=>nav('/transport')}/>
-        <Card icon="💳" title="Bill Payments" desc="Pay utilities and taxes online" actionText="Open" onClick={()=>nav('/bills')}/>
-        <Card icon="🧑‍⚕️" title="Healthcare Services" desc="Book appointments and emergency contacts" actionText="Open" onClick={()=>nav('/healthcare')}/>
-        <Card icon="🛠️" title="Report Issues" desc="Submit complaints and track status" actionText="Open" onClick={()=>nav('/complaints')}/>
-        <Card icon="📘" title="City Tourism" desc="Explore attractions and events" actionText="Open" onClick={()=>nav('/tourism')}/>
-        <Card icon="🚨" title="Emergency Services" desc="Quick access to emergency contacts" actionText="Open" onClick={()=>nav('/emergency')}/>
+    <div>
+      <h2>Welcome to SmartCityHub</h2>
+      <div style={{display:'flex',gap:12,marginTop:12}}>
+        {bills.cards.map((c, i)=> (
+          <div key={i} className="card" style={{flex:1}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div>
+                <div style={{fontSize:12,color:'var(--muted)'}}>Service</div>
+                <div style={{fontWeight:700,fontSize:18}}>{c.name}</div>
+              </div>
+              <div style={{fontWeight:700}}>{c.amount}</div>
+            </div>
+          </div>
+        ))}
       </div>
-    </Layout>
+
+      <div style={{marginTop:18}} className="card">
+        <h3 style={{marginTop:0}}>Quick Links</h3>
+        <div style={{display:'flex',gap:12,flexWrap:'wrap'}}>
+          <Link to="/bills" className="link">Bills & Payments</Link>
+          <Link to="/complaints" className="link">Complaints</Link>
+          <Link to="/transport" className="link">Transport</Link>
+          <Link to="/healthcare" className="link">Healthcare</Link>
+          <Link to="/tourism" className="link">Tourism</Link>
+        </div>
+      </div>
+    </div>
   )
 }

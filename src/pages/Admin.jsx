@@ -1,90 +1,131 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaUsers } from "react-icons/fa";
-import { MdOutlineDashboard, MdOutlineReport } from "react-icons/md";
-import { BiBarChartAlt2 } from "react-icons/bi";
-import { GiSiren } from "react-icons/gi";
-import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import React from 'react'
 
-export default function Admin() {
-  const navigate = useNavigate();
+export default function Admin(){
+  return (
+    <div style={{padding:24}}>
+      <h2>Admin</h2>
+      <p>Admin dashboard placeholder — content will be restored shortly.</p>
+    </div>
+  )
+}
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-  const logout = () => navigate("/login");
+import seedBills from '../data/bills.json'
+
+const BILLS_KEY = 'billsData'
+
+function readAuth(){
+  try { return JSON.parse(localStorage.getItem('auth')) || null } catch(e){ return null }
+}
+
+function loadBills(){
+  try{ const raw = localStorage.getItem(BILLS_KEY); if(raw) return JSON.parse(raw) }catch(e){}
+  return seedBills
+}
+
+export default function Admin(){
+  const navigate = useNavigate()
+  const [auth, setAuth] = useState(readAuth())
+  const [bills, setBills] = useState(loadBills())
+
+  useEffect(()=>{
+    const a = readAuth()
+    setAuth(a)
+    if(!a || !a.isAdmin){
+      navigate('/login')
+    }
+  }, [navigate])
+
+  useEffect(()=>{
+    // watch localStorage changes (if admin made edits in another tab)
+    function onStorage(){ setBills(loadBills()) }
+    window.addEventListener('storage', onStorage)
+    return ()=> window.removeEventListener('storage', onStorage)
+  }, [])
+
+  function logout(){ localStorage.removeItem('auth'); navigate('/login') }
+
+  const usersCount = 1234 // placeholder; replace with real data when available
+
+  // compute payments total for 'today' for a simple summary
+  const today = new Date().toISOString().slice(0,10)
+  const paymentsToday = bills.payments.filter(p => p[2] === today || p[2] === '' ).reduce((s,p)=> s + (parseFloat(String(p[1]).replace(/[^0-9.]/g,'')) || 0), 0)
 
   return (
-    <div className="layout">
-
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <h1>🏙 SmartCityHub</h1>
-
-        <div className="nav">
-          <Link to="/admin" className="active"><MdOutlineDashboard /> Admin Dashboard</Link>
-          <Link to="/dashboard"><FaUsers /> User Management</Link>
-          <Link to="/analytics"><BiBarChartAlt2 /> Analytics</Link>
-          <Link to="/complaints"><MdOutlineReport /> Manage Complaints</Link>
+    <div style={{display:'flex',minHeight:'100vh'}}>
+      <aside style={{width:280,padding:20,background:'#fff',boxShadow:'0 10px 20px rgba(0,0,0,.06)',position:'relative'}}>
+        <h3 style={{marginTop:0}}>Admin Console</h3>
+        <div style={{marginTop:12,display:'flex',flexDirection:'column',gap:8}}>
+          <button className="button secondary" onClick={()=>navigate('/admin')}>Dashboard</button>
+          <button className="button secondary" onClick={()=>navigate('/admin/bills')}>Manage Bills</button>
+          <button className="button secondary" onClick={()=>navigate('/admin/users')}>Manage Users</button>
         </div>
 
-        <div style={{ marginTop: "40px" }}>
-          <button onClick={() => navigate("/dashboard")} className="button secondary" style={{ width: "100%" }}>
-            <FaUsers /> Citizen View
-          </button>
+        <div style={{position:'absolute',bottom:24,left:20,right:20}}>
+          <button className="button" style={{background:'#ef4444',width:'100%'}} onClick={logout}>Logout</button>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="content">
-        <header className="header">
-          <div className="search">
-            <input placeholder="Search city services, locations, facilities..." />
+      <main style={{flex:1,padding:24}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <h2 style={{margin:0}}>Administrator Dashboard</h2>
+          <div style={{display:'flex',gap:8}}>
+            <button className="button secondary" onClick={()=>navigate('/admin/users')}>Users</button>
+            <button className="button" onClick={()=>navigate('/admin/bills')}>Bills</button>
+          </div>
+        </div>
+
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12,marginTop:18}}>
+          <div className="card">
+            <div style={{fontSize:12,color:'var(--muted)'}}>Active Users</div>
+            <div style={{fontWeight:700,fontSize:22}}>{usersCount.toLocaleString()}</div>
+          </div>
+          <div className="card">
+            <div style={{fontSize:12,color:'var(--muted)'}}>Open Complaints</div>
+            <div style={{fontWeight:700,fontSize:22}}>32</div>
+          </div>
+          <div className="card">
+            <div style={{fontSize:12,color:'var(--muted)'}}>Payments Today</div>
+            <div style={{fontWeight:700,fontSize:22}}>${paymentsToday.toFixed(2)}</div>
+          </div>
+        </div>
+
+        <div style={{marginTop:18,display:'grid',gridTemplateColumns:'2fr 1fr',gap:12}}>
+          <div className="card">
+            <h3 style={{marginTop:0}}>Recent Payments</h3>
+            <table className="table">
+              <thead>
+                <tr><th>Service</th><th>Amount</th><th>Date</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                {bills.payments.slice(0,8).map((p, i)=> (
+                  <tr key={i}>
+                    <td>{p[0]}</td>
+                    <td>{p[1]}</td>
+                    <td>{p[2]}</td>
+                    <td>{p[3]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
-          <div>Welcome, <b>Admin</b><br />
-            <span className="badge green">Administrator</span>
+          <div className="card">
+            <h3 style={{marginTop:0}}>Quick Actions</h3>
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              <button className="button" onClick={()=>navigate('/admin/bills')}>Create Bill</button>
+              <button className="button secondary" onClick={()=>navigate('/admin/users')}>Manage Users</button>
+              <button className="button secondary" onClick={()=>{ localStorage.removeItem('billsData'); setBills(loadBills()); }}>Reset Bills Data</button>
+            </div>
           </div>
+        </div>
 
-          <button className="button red" onClick={logout} style={{ background:"#ef4444" }}>Logout</button>
-        </header>
-
-        <div className="page">
-          <h2>City Management Dashboard</h2>
-
-          {/* Stats */}
-          <div className="grid cols-4" style={{ marginTop: "20px" }}>
-            <Card icon={<FaUsers />} title="Total Citizens" value="54,723" trend="+5.2% from last month" trendColor="green" />
-            <Card icon={<MdOutlineReport />} title="Active Complaints" value="127" trend="-12% from last month" trendColor="red" />
-            <Card icon={<GiSiren />} title="Emergency Calls" value="18" trend="+3 from last month" trendColor="green" />
-            <Card icon={<RiMoneyDollarCircleFill />} title="Revenue (Month)" value="$2.1M" trend="+8.1% from last month" trendColor="green" />
-          </div>
-
-          {/* Feature Cards */}
-          <div className="grid cols-3" style={{ marginTop: "28px" }}>
-            <Feature title="User Management" text="Manage citizen accounts and permissions" link="/dashboard" />
-            <Feature title="System Analytics" text="View detailed reports and statistics" link="/analytics" />
-            <Feature title="Manage Complaints" text="Review and resolve citizen issues" link="/complaints" />
-          </div>
+        <div style={{marginTop:14}} className="card">
+          <h3 style={{marginTop:0}}>Debug — current auth</h3>
+          <pre style={{whiteSpace:'pre-wrap',margin:0}}>{JSON.stringify(auth, null, 2)}</pre>
         </div>
       </main>
     </div>
-  );
-}
-
-function Card({ icon, title, value, trend, trendColor }) {
-  return (
-    <div className="card">
-      <div className="badge">{icon}</div>
-      <h3>{title}</h3>
-      <h1>{value}</h1>
-      <span className={`badge ${trendColor}`}>{trend}</span>
-    </div>
-  );
-}
-
-function Feature({ title, text, link }) {
-  return (
-    <Link to={link} className="card" style={{ cursor: "pointer" }}>
-      <h3>{title}</h3>
-      <p>{text}</p>
-    </Link>
-  );
+  )
 }
